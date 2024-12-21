@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:burguer_menu_app/features/shared/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -5,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBody: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -22,28 +26,27 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Expanded(
-        child: ListView.builder(
-          padding:  const EdgeInsets.symmetric(horizontal: 16.0),
-          scrollDirection: Axis.vertical,
-          itemCount: 7,
-          itemBuilder: (context, index) {
-            return Container(
-                height: MediaQuery.sizeOf(context).height * 0.25,
-                child: _buildMilkshakeCard(index + 1));
-          },
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.pink,
-        unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorites'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              scrollDirection: Axis.vertical,
+              itemCount: 7,
+              itemBuilder: (context, index) {
+                return Container(
+                    height: MediaQuery.sizeOf(context).height * 0.25,
+                    child: _buildMilkshakeCard(index + 1));
+              },
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            height: MediaQuery.sizeOf(context).height * 0.1,
+            width: MediaQuery.sizeOf(context).width,
+            child: const CustomBottomNavigationBar(),
+          ),
         ],
       ),
     );
