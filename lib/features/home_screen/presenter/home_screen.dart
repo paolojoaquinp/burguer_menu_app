@@ -8,14 +8,16 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title: Text('Milkshakes',
+        surfaceTintColor: Colors.white,
+        centerTitle: false,
+        title: Text('Menu',
             style: TextStyle(
                 color: Colors.black,
-                fontSize: 24,
+                fontSize: 28,
                 fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: Colors.black),
+            icon: Icon(Icons.shopping_bag, color: Colors.black),
             onPressed: () {},
           )
         ],
