@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:burguer_menu_app/features/home_screen/domain/entities/food_meal_entity.dart';
+import 'package:burguer_menu_app/features/home_screen/presenter/widgets/food_menu_card.dart';
 import 'package:burguer_menu_app/features/shared/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               scrollDirection: Axis.vertical,
-              itemCount: 7,
+              itemCount: FoodMealEntity.fakeMealFoodValues.length,
               itemBuilder: (context, index) {
                 return TweenAnimationBuilder(
                   tween: Tween<double>(begin: 0, end: 1),
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                         offset: Offset(0, MediaQuery.sizeOf(context).height * (1 - animation)),
                         child: Container(
                           height: MediaQuery.sizeOf(context).height * 0.25,
-                          child: _buildMilkshakeCard(index + 1),
+                          child: FoodMenuCard(foodMenu: FoodMealEntity.fakeMealFoodValues[index]),
                         ),
                       ),
                     );
@@ -67,64 +69,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMilkshakeCard(int index) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return SizedBox(
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            // Background
-            Positioned(
-              bottom: 0,
-              width: constraints.maxWidth,
-              height: constraints.maxHeight * 0.7,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      spreadRadius: 1,
-                      blurRadius: 9,
-                    )
-                  ],
-                ),
-              ),
-            ),
-            // INformation
-            Positioned.fill(
-              child: Container(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset('assets/milkshakes/shake-1.png'),
-                    SizedBox(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: constraints.maxHeight * 0.3,
-                          ),
-                          Text(
-                            'Chocolate Drinks',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          Text('20 Cups of different flavours'),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    });
-  }
 }
