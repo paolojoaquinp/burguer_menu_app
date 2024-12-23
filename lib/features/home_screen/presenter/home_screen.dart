@@ -35,9 +35,24 @@ class HomeScreen extends StatelessWidget {
               scrollDirection: Axis.vertical,
               itemCount: 7,
               itemBuilder: (context, index) {
-                return Container(
-                    height: MediaQuery.sizeOf(context).height * 0.25,
-                    child: _buildMilkshakeCard(index + 1));
+                return TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 0, end: 1),
+                  curve: Curves.easeInOut,
+                  duration: Duration(milliseconds: 1200 + (index * 200)),
+                  builder: (context, animation, child) {
+                    return Opacity(
+                      opacity: animation,
+                      child: Transform.translate(
+                        // from the bottom of the screen to the top
+                        offset: Offset(0, MediaQuery.sizeOf(context).height * (1 - animation)),
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height * 0.25,
+                          child: _buildMilkshakeCard(index + 1),
+                        ),
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ),
