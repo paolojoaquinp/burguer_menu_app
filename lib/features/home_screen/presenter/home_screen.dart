@@ -47,8 +47,8 @@ class HomeScreen extends StatelessWidget {
                       child: Transform.translate(
                         // from the bottom of the screen to the top
                         offset: Offset(0, MediaQuery.sizeOf(context).height * (1 - animation)),
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.25,
+                        child: SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.22,
                           child: FoodMenuCard(foodMenu: FoodMealEntity.fakeMealFoodValues[index]),
                         ),
                       ),
