@@ -1,113 +1,89 @@
+import 'dart:ui';
+
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/menu_perspective_scroll_view.dart';
 import 'package:flutter/material.dart';
 
-class FoodMealMenuScreen extends StatelessWidget {
+class FoodMealMenuScreen extends StatefulWidget {
+  @override
+  State<FoodMealMenuScreen> createState() => _FoodMealMenuScreenState();
+}
+
+class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
+  late PageController _pageController =
+      PageController(initialPage: 4, viewportFraction: 0.6);
+  int? _currentIndex;
+  double? _pagePercent;
+
+  @override
+  void initState() {
+    _currentIndex = 4;
+    _pagePercent = 0.0;
+    _pageController!.addListener(_pageListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController!
+      ..removeListener(_pageListener)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _pageListener() {
+    _currentIndex = _pageController.page!.floor();
+    _pagePercent = (_pageController.page! - _currentIndex!).abs();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Expanded(
-        child: _MenuPerspectiveScrollView(),
-      ),
-    );
-  }
-}
-
-class _MenuPerspectiveScrollView extends StatelessWidget {
-  const _MenuPerspectiveScrollView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(
-                constraints.maxWidth * 0.35,
-                -(constraints.maxHeight * 0.1),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Positioned.fill(
+              child: MenuPerspectiveScrollView(
+                currentPage: _currentIndex!,
+                factorChange: _pagePercent!,
               ),
-              child: Transform.scale(
-                scale: .25,
-                child: Container(
-                  color: Colors.transparent,
-                  child: const _MealCard(
-                    title: "Chicken Salad",
-                    calories: "420 cal",
-                    imagePath: "assets/milkshakes/shake-5.png",
-                    opacity: 1.0,
+            ),
+            // Static new element
+            Positioned.fill(
+              child: Transform.translate(
+                offset: Offset(
+                  lerpDouble(-(size.width * 0.5), -(size.width * 0.05), _pagePercent!)!,
+                  lerpDouble(size.height * 0.5, size.height * 0.1, _pagePercent!)!,
+                ),
+                child: Transform.scale(
+                  scale: lerpDouble(.1, .9, _pagePercent!), // Escala completa
+                  child: Container(
+                    color: Colors.transparent,
+                    child: MealCard(
+                      imagePath:
+                          "assets/milkshakes/shake-${_currentIndex! + 1}.png",
+                      opacity: 1.0,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          // Segunda tarjeta (mediana)
-          Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(
-                constraints.maxWidth * 0.2,
-                0.0,
-              ),
-              child: Transform.scale(
-                scale: .5, // Escala completa
-                child: Container(
-                  color: Colors.transparent,
-                  child: const _MealCard(
-                    title: "Chicken Salad",
-                    calories: "420 cal",
-                    imagePath: "assets/milkshakes/shake-3.png",
-                    opacity: 1.0,
-                  ),
-                ),
+            // PageView Controllment
+            Positioned.fill(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: 7,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return const SizedBox();
+                },
               ),
             ),
-          ),
-          Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(
-                -(constraints.maxWidth * 0.05),
-                constraints.maxHeight * 0.1,
-              ),
-              child: Transform.scale(
-                scale: .9, // Escala completa
-                child: Container(
-                  color: Colors.transparent,
-                  child: const _MealCard(
-                    title: "Chicken Salad",
-                    calories: "420 cal",
-                    imagePath: "assets/milkshakes/shake-4.png",
-                    opacity: 1.0,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    });
-  }
-}
-
-class _MealCard extends StatelessWidget {
-  const _MealCard({
-    super.key,
-    required this.title,
-    required this.calories,
-    required this.imagePath,
-    required this.opacity,
-  });
-
-  final String title;
-  final String calories;
-  final String imagePath;
-  final double opacity;
-
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: opacity,
-      child: Image.asset(
-        imagePath,
-        fit: BoxFit.fitWidth,
+          ],
+        ),
       ),
     );
   }
