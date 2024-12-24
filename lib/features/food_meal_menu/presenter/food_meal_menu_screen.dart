@@ -10,8 +10,7 @@ class FoodMealMenuScreen extends StatefulWidget {
 }
 
 class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
-  late PageController _pageController =
-      PageController(initialPage: 4, viewportFraction: 0.6);
+  late PageController _pageController = PageController(initialPage: 4, viewportFraction: 0.6);
   int? _currentIndex;
   double? _pagePercent;
 
