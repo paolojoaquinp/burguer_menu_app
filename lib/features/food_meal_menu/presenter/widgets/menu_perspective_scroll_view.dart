@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 class MenuPerspectiveScrollView extends StatelessWidget {
   const MenuPerspectiveScrollView({
     super.key,
-    this.currentPage = 4,
+    required this.currentPage,
     required this.factorChange,
+    required this.itemsLength,
   });
 
   final int currentPage;
   final double factorChange;
+  final int itemsLength;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class MenuPerspectiveScrollView extends StatelessWidget {
                 child: Container(
                   color: Colors.transparent,
                   child: MealCard(
+                    index: currentPage - 2,
                     imagePath: "assets/milkshakes/shake-${currentPage - 2}.png",
                     opacity: 1.0,
                   ),
@@ -41,7 +44,8 @@ class MenuPerspectiveScrollView extends StatelessWidget {
           Positioned.fill(
             child: Transform.translate(
               offset: Offset(
-                lerpDouble(constraints.maxWidth * 0.2, constraints.maxWidth * 0.35, factorChange)!,
+                lerpDouble(constraints.maxWidth * 0.2,
+                    constraints.maxWidth * 0.35, factorChange)!,
                 lerpDouble(0.0, -(constraints.maxHeight * 0.1), factorChange)!,
               ),
               child: Transform.scale(
@@ -49,6 +53,7 @@ class MenuPerspectiveScrollView extends StatelessWidget {
                 child: Container(
                   color: Colors.transparent,
                   child: MealCard(
+                    index: currentPage - 1,
                     imagePath: "assets/milkshakes/shake-${currentPage - 1}.png",
                     opacity: 1.0,
                   ),
@@ -56,10 +61,12 @@ class MenuPerspectiveScrollView extends StatelessWidget {
               ),
             ),
           ),
+          // Tercera tarjeta (grande)
           Positioned.fill(
             child: Transform.translate(
               offset: Offset(
-                lerpDouble(-(constraints.maxWidth * 0.05), constraints.maxWidth * 0.2, factorChange)!,
+                lerpDouble(-(constraints.maxWidth * 0.05),
+                    constraints.maxWidth * 0.2, factorChange)!,
                 lerpDouble(constraints.maxHeight * 0.1, 0.0, factorChange)!,
               ),
               child: Transform.scale(
@@ -67,13 +74,14 @@ class MenuPerspectiveScrollView extends StatelessWidget {
                 child: Container(
                   color: Colors.transparent,
                   child: MealCard(
+                    index: currentPage,
                     imagePath: "assets/milkshakes/shake-$currentPage.png",
                     opacity: 1.0,
                   ),
                 ),
               ),
             ),
-          ),
+          )
         ],
       );
     });

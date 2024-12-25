@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/meal_card.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/menu_perspective_scroll_view.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/transformed_item.dart';
 import 'package:flutter/material.dart';
 
 class FoodMealMenuScreen extends StatefulWidget {
@@ -10,9 +11,11 @@ class FoodMealMenuScreen extends StatefulWidget {
 }
 
 class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
-  late PageController _pageController = PageController(initialPage: 4, viewportFraction: 0.6);
+  late PageController _pageController =
+      PageController(initialPage: 4, viewportFraction: 0.6);
   int? _currentIndex;
   double? _pagePercent;
+  final lengthItems = 7;
 
   @override
   void initState() {
@@ -32,8 +35,10 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
 
   void _pageListener() {
     _currentIndex = _pageController.page!.floor();
+    // infinite loop
     _pagePercent = (_pageController.page! - _currentIndex!).abs();
     setState(() {});
+    print(_pagePercent);
   }
 
   @override
@@ -48,34 +53,43 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
               child: MenuPerspectiveScrollView(
                 currentPage: _currentIndex!,
                 factorChange: _pagePercent!,
+                itemsLength: lengthItems,
               ),
             ),
             // Static new element
-            Positioned.fill(
-              child: Transform.translate(
-                offset: Offset(
-                  lerpDouble(-(size.width * 0.5), -(size.width * 0.05), _pagePercent!)!,
-                  lerpDouble(size.height * 0.5, size.height * 0.1, _pagePercent!)!,
-                ),
-                child: Transform.scale(
-                  scale: lerpDouble(.1, .9, _pagePercent!), // Escala completa
-                  child: Container(
-                    color: Colors.transparent,
-                    child: MealCard(
-                      imagePath:
-                          "assets/milkshakes/shake-${_currentIndex! + 1}.png",
-                      opacity: 1.0,
-                    ),
-                  ),
-                ),
+            if(_currentIndex! < lengthItems -1)
+            TransformedItem(
+              index: _currentIndex! + 1,
+              factorChange: _pagePercent!,
+              startScale: .1,
+              endScale: .9,
+              startXTranslate: -(size.width * 0.5),
+              endXTranslate: -(size.width * 0.05),
+              startYTranslate: size.height * 0.5,
+              endYTranslate: size.height * 0.1,
+              child: MealCard(
+                index: _currentIndex! + 1,
+                imagePath: "assets/milkshakes/shake-${_currentIndex! + 1}.png",
+                opacity: 1.0,
               ),
+            )
+            else TransformedItem(
+              index: _currentIndex! + 1,
+              factorChange: _pagePercent!.clamp(0, 0.5),
+              startScale: .1,
+              endScale: .9,
+              startXTranslate: -(size.width * 0.5),
+              endXTranslate: -(size.width * 0.05),
+              startYTranslate: size.height * 0.5,
+              endYTranslate: size.height * 0.1,
+              child: SizedBox(),
             ),
-            // PageView Controllment
             Positioned.fill(
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: 7,
+                itemCount: lengthItems,
                 scrollDirection: Axis.vertical,
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return const SizedBox();
                 },
