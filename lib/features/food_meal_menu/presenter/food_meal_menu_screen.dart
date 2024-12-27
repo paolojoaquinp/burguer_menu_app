@@ -1,3 +1,4 @@
+import 'package:burguer_menu_app/features/food_meal_menu/domain/entities/meal_entity.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/animated_scaled_page_view.dart';
 import 'package:flutter/material.dart';
 
@@ -41,15 +42,58 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Food Meal Menu'),
+        surfaceTintColor: Colors.white,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_bag_outlined),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Column(
         children: [
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.red,
-              child: Text('Food Meal Menu Screen'),
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+              width: double.maxFinite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          MealEntity.fakeValues[_currentIndex!].name,
+                          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          MealEntity.fakeValues[_currentIndex!].type,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "£${MealEntity.fakeValues[_currentIndex!].price.toString().substring(0, 3)}",
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: MealEntity.fakeValues[_currentIndex!].price.toString().substring(3,5),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
