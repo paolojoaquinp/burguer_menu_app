@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/widget/meal_card.dart';
 import 'package:flutter/material.dart';
 
 class MenuPerspectiveScrollView extends StatelessWidget {
@@ -33,7 +33,7 @@ class MenuPerspectiveScrollView extends StatelessWidget {
                   color: Colors.transparent,
                   child: MealCard(
                     index: currentPage - 2,
-                    imagePath: "assets/milkshakes/shake-${currentPage - 2}.png",
+                    imagePath: "assets/milkshakes/shake-${(currentPage - 2) % 7}.png",
                     opacity: 1.0,
                   ),
                 ),
@@ -54,7 +54,7 @@ class MenuPerspectiveScrollView extends StatelessWidget {
                   color: Colors.transparent,
                   child: MealCard(
                     index: currentPage - 1,
-                    imagePath: "assets/milkshakes/shake-${currentPage - 1}.png",
+                    imagePath: "assets/milkshakes/shake-${(currentPage - 1) % 7}.png",
                     opacity: 1.0,
                   ),
                 ),
@@ -75,7 +75,7 @@ class MenuPerspectiveScrollView extends StatelessWidget {
                   color: Colors.transparent,
                   child: MealCard(
                     index: currentPage,
-                    imagePath: "assets/milkshakes/shake-$currentPage.png",
+                    imagePath: "assets/milkshakes/shake-${currentPage % 7}.png",
                     opacity: 1.0,
                   ),
                 ),
