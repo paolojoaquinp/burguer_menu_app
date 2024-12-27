@@ -34,24 +34,36 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
     // infinite loop
     _pagePercent = (_pageController.page! - _currentIndex!).abs();
     setState(() {});
-    print(_pagePercent);
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Expanded(
-        child: AnimatedScaledPageView(
-          currentIndex: _currentIndex,
-          pagePercent: _pagePercent,
-          lengthItems: lengthItems,
-          size: size,
-          pageController: _pageController,
-        ),
+      appBar: AppBar(
+        title: const Text('Food Meal Menu'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.red,
+              child: Text('Food Meal Menu Screen'),
+            ),
+          ),
+          Expanded(
+            flex: 11,
+            child: AnimatedScaledPageView(
+              currentIndex: _currentIndex,
+              pagePercent: _pagePercent,
+              lengthItems: lengthItems,
+              size: size,
+              pageController: _pageController,
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
-

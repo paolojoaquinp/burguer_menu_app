@@ -16,16 +16,10 @@ class MealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Opacity(
       opacity: opacity,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-          Positioned.fill(child: Text(index.toString(), style: Theme.of(context).textTheme.headlineLarge,)),
-        ],
+      child: Image.asset(
+        imagePath,
+        fit: BoxFit.fitWidth,
+        alignment: Alignment.topCenter,
       ),
     );
   }

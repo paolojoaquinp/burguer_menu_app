@@ -36,14 +36,14 @@ class AnimatedScaledPageView extends StatelessWidget {
         // Static new element
         if (_currentIndex! < lengthItems - 1)
           TransformedItem(
-            index: _currentIndex! + 1,
-            factorChange: _pagePercent!,
+            index: _currentIndex + 1,
+            factorChange: _pagePercent,
             startScale: .1,
             endScale: .9,
             startXTranslate: -(size.width * 0.5),
             endXTranslate: -(size.width * 0.05),
             startYTranslate: size.height * 0.5,
-            endYTranslate: size.height * 0.1,
+            endYTranslate: size.height * 0.08,
             child: MealCard(
               index: _currentIndex! + 1,
               imagePath:
