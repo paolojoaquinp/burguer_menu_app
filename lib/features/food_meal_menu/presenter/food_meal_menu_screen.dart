@@ -1,12 +1,11 @@
-import 'dart:ui';
-
-import 'package:burguer_menu_app/features/food_meal_menu/domain/entities/meal_entity.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/category_menu_page_view_screen.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/information_meal_card.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/detail_meal_screen/detail_meal_screen.dart';
 import 'package:flutter/material.dart';
 
 class FoodMealMenuScreen extends StatefulWidget {
+  const FoodMealMenuScreen({super.key});
+
   @override
   State<FoodMealMenuScreen> createState() => _FoodMealMenuScreenState();
 }
