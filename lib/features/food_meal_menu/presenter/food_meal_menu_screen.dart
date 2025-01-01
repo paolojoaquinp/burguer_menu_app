@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:burguer_menu_app/features/food_meal_menu/domain/entities/meal_entity.dart';
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/animated_scaled_page_view.dart';
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/widget/information_meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/category_menu_list_screen.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/information_meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/detail_meal_screen/detail_meal_screen.dart';
 import 'package:flutter/material.dart';
 
 class FoodMealMenuScreen extends StatefulWidget {
@@ -14,6 +15,9 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
   late PageController _pageController = PageController(initialPage: 4, viewportFraction: 0.6);
   late PageController _pageControllerText = PageController(initialPage: 4,);
 
+  // index to control IndexedStack - name the variable correctly
+  int _pageIndexActive = 0;
+  
   int? _currentIndex;
   double? _pagePercent;
   final lengthItems = 7;
@@ -67,16 +71,19 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
           ),
           Expanded(
             flex: 11,
-            child: PageView(
+            child: IndexedStack(
+              index: _pageIndexActive,
               children: [
-                AnimatedScaledPageView(
+                CategoryMenuListScreen(
                   currentIndex: _currentIndex,
                   pagePercent: _pagePercent,
                   lengthItems: lengthItems,
                   size: size,
                   pageController: _pageController,
                 ),
-                Center(child: Text('Placegolder'),)
+                DetailMealScreen(
+                  currentIndex: _currentIndex!,
+                )
               ],
             ),
           ),

@@ -1,10 +1,10 @@
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/widget/meal_card.dart';
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/widget/menu_perspective_scroll_view.dart';
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/widget/transformed_item.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/menu_perspective_scroll_view.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/transformed_item.dart';
 import 'package:flutter/material.dart';
 
-class AnimatedScaledPageView extends StatelessWidget {
-  const AnimatedScaledPageView({
+class CategoryMenuListScreen extends StatelessWidget {
+  const CategoryMenuListScreen({
     super.key,
     required int? currentIndex,
     required double? pagePercent,

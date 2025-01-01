@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/widgets/animated_scaled_page_view/widget/meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/meal_card.dart';
 import 'package:flutter/material.dart';
 
 class MenuPerspectiveScrollView extends StatelessWidget {
