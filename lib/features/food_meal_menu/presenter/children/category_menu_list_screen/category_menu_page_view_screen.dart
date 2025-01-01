@@ -71,7 +71,12 @@ class CategoryMenuListScreen extends StatelessWidget {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return const SizedBox();
+              return GestureDetector(
+                onTap: () => onPageChanged(),
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              );
             },
           ),
         ),

@@ -26,9 +26,9 @@ class _InformationMealCardState extends State<InformationMealCard> {
     final absPrevPage = (widget.currentIndex - 1) % 7;
     // abs nxt page (curerntIndex + 1)
     final absNxtPage = (widget.currentIndex + 1) % 7;
-    print('absPrevPage: $absPrevPage');
-    print('currentIndex: ${widget.currentIndex}');
-    print('absNxtPage: $absNxtPage');
+    // print('absPrevPage: $absPrevPage');
+    // print('currentIndex: ${widget.currentIndex}');
+    // print('absNxtPage: $absNxtPage');
     final size = MediaQuery.sizeOf(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),

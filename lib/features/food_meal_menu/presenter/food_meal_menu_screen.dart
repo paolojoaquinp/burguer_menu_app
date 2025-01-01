@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:burguer_menu_app/features/food_meal_menu/domain/entities/meal_entity.dart';
-import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/category_menu_list_screen.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/category_menu_page_view_screen.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/information_meal_card.dart';
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/detail_meal_screen/detail_meal_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,6 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
   late PageController _pageController = PageController(initialPage: 4, viewportFraction: 0.6);
   late PageController _pageControllerText = PageController(initialPage: 4,);
 
-  // index to control IndexedStack - name the variable correctly
   int _pageIndexActive = 0;
   
   int? _currentIndex;
@@ -46,6 +45,7 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
   }
 
   void _onPageChanged(int index) {
+    print('_pageIndexActive: $_pageIndexActive');
     setState(() {
       _pageIndexActive = index;
     });
