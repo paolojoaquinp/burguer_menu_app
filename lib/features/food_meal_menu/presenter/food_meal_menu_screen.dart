@@ -45,6 +45,11 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
     setState(() {});
   }
 
+  void _onPageChanged(int index) {
+    setState(() {
+      _pageIndexActive = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +80,9 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
               index: _pageIndexActive,
               children: [
                 CategoryMenuListScreen(
-                  currentIndex: _currentIndex,
-                  pagePercent: _pagePercent,
+                  currentIndex: _currentIndex!,
+                  onPageChanged: () => _onPageChanged(1),
+                  pagePercent: _pagePercent!,
                   lengthItems: lengthItems,
                   size: size,
                   pageController: _pageController,

@@ -6,20 +6,20 @@ import 'package:flutter/material.dart';
 class CategoryMenuListScreen extends StatelessWidget {
   const CategoryMenuListScreen({
     super.key,
-    required int? currentIndex,
-    required double? pagePercent,
+    required this.currentIndex,
+    required this.pagePercent,
     required this.lengthItems,
     required this.size,
-    required PageController pageController,
-  })  : _currentIndex = currentIndex,
-        _pagePercent = pagePercent,
-        _pageController = pageController;
+    required this.pageController,
+    required this.onPageChanged,
+  });
 
-  final int? _currentIndex;
-  final double? _pagePercent;
+  final int currentIndex;
+  final double pagePercent;
   final int lengthItems;
   final Size size;
-  final PageController _pageController;
+  final PageController pageController;
+  final VoidCallback onPageChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +28,16 @@ class CategoryMenuListScreen extends StatelessWidget {
       children: [
         Positioned.fill(
           child: MenuPerspectiveScrollView(
-            currentPage: _currentIndex!,
-            factorChange: _pagePercent!,
+            currentPage: currentIndex,
+            factorChange: pagePercent,
             itemsLength: lengthItems,
           ),
         ),
         // Static new element
-        if (_currentIndex! < lengthItems - 1)
+        if (currentIndex < lengthItems - 1)
           TransformedItem(
-            index: _currentIndex + 1,
-            factorChange: _pagePercent,
+            index: currentIndex + 1,
+            factorChange: pagePercent,
             startScale: .1,
             endScale: .9,
             startXTranslate: -(size.width * 0.5),
@@ -45,16 +45,16 @@ class CategoryMenuListScreen extends StatelessWidget {
             startYTranslate: size.height * 0.5,
             endYTranslate: size.height * 0.08,
             child: MealCard(
-              index: _currentIndex! + 1,
+              index: currentIndex + 1,
               imagePath:
-                  "assets/milkshakes/shake-${(_currentIndex! + 1) % lengthItems}.png",
+                  "assets/milkshakes/shake-${(currentIndex + 1) % lengthItems}.png",
               opacity: 1.0,
             ),
           )
         else
           TransformedItem(
-            index: _currentIndex! + 1,
-            factorChange: _pagePercent!.clamp(0, 0.5),
+            index: currentIndex + 1,
+            factorChange: pagePercent.clamp(0, 0.5),
             startScale: .1,
             endScale: .9,
             startXTranslate: -(size.width * 0.5),
@@ -63,9 +63,10 @@ class CategoryMenuListScreen extends StatelessWidget {
             endYTranslate: size.height * 0.1,
             child: SizedBox(),
           ),
+        // Void Page View
         Positioned.fill(
           child: PageView.builder(
-            controller: _pageController,
+            controller: pageController,
             itemCount: lengthItems,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
