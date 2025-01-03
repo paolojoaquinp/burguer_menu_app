@@ -11,11 +11,13 @@ class FoodMealMenuScreen extends StatefulWidget {
 }
 
 class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
-  late PageController _pageController = PageController(initialPage: 4, viewportFraction: 0.6);
-  late PageController _pageControllerText = PageController(initialPage: 4,);
+  late PageController _pageController =
+      PageController(initialPage: 4, viewportFraction: 0.6);
+  late PageController _pageControllerText = PageController(
+    initialPage: 4,
+  );
 
-  int _pageIndexActive = 0;
-  
+
   int? _currentIndex;
   double? _pagePercent;
   final lengthItems = 7;
@@ -43,11 +45,28 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
     setState(() {});
   }
 
-  void _onPageChanged(int index) {
-    print('_pageIndexActive: $_pageIndexActive');
-    setState(() {
-      _pageIndexActive = index;
-    });
+  void _onPageChanged() {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => DetailMealScreen(currentIndex: _currentIndex!),
+    //   ),
+    // );
+    // Page Route Builder fade
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return FadeTransition(
+            opacity: animation,
+            child: DetailMealScreen(
+              currentIndex: _currentIndex!,
+              factorChange: _pagePercent!,
+              pageControllerText: PageController(),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -64,6 +83,7 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
         ],
       ),
       body: Column(
+        // how to make the Expanded Stay and just the EWxpanded flex : 11 change on _onPageChanged
         children: [
           Expanded(
             flex: 1,
@@ -75,21 +95,13 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
           ),
           Expanded(
             flex: 11,
-            child: IndexedStack(
-              index: _pageIndexActive,
-              children: [
-                CategoryMenuListScreen(
-                  currentIndex: _currentIndex!,
-                  onPageChanged: () => _onPageChanged(1),
-                  pagePercent: _pagePercent!,
-                  lengthItems: lengthItems,
-                  size: size,
-                  pageController: _pageController,
-                ),
-                DetailMealScreen(
-                  currentIndex: _currentIndex!,
-                )
-              ],
+            child: CategoryMenuListScreen(
+              currentIndex: _currentIndex!,
+              onPageChanged: () => _onPageChanged(),
+              pagePercent: _pagePercent!,
+              lengthItems: lengthItems,
+              size: size,
+              pageController: _pageController,
             ),
           ),
         ],
