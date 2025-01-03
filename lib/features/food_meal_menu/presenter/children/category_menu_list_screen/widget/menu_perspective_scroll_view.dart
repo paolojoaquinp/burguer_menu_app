@@ -63,20 +63,23 @@ class MenuPerspectiveScrollView extends StatelessWidget {
           ),
           // Tercera tarjeta (grande)
           Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(
-                lerpDouble(-(constraints.maxWidth * 0.05),
-                    constraints.maxWidth * 0.2, factorChange)!,
-                lerpDouble(constraints.maxHeight * 0.1, 0.0, factorChange)!,
-              ),
-              child: Transform.scale(
-                scale: lerpDouble(.9, .5, factorChange), // Escala completa
-                child: Container(
-                  color: Colors.transparent,
-                  child: MealCard(
-                    index: currentPage,
-                    imagePath: "assets/milkshakes/shake-${currentPage % 7}.png",
-                    opacity: 1.0,
+            child: Hero(
+              tag: 'meal-card-$currentPage',
+              child: Transform.translate(
+                offset: Offset(
+                  lerpDouble(-(constraints.maxWidth * 0.05),
+                      constraints.maxWidth * 0.2, factorChange)!,
+                  lerpDouble(constraints.maxHeight * 0.1, 0.0, factorChange)!,
+                ),
+                child: Transform.scale(
+                  scale: lerpDouble(.9, .5, factorChange),
+                  child: Container(
+                    color: Colors.transparent,
+                    child: MealCard(
+                      index: currentPage,
+                      imagePath: "assets/milkshakes/shake-${currentPage % 7}.png",
+                      opacity: 1.0,
+                    ),
                   ),
                 ),
               ),
