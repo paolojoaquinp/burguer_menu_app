@@ -49,12 +49,12 @@ class OnboardingScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
-                        minimumSize: Size(double.infinity, 52),
-                        shape: RoundedRectangleBorder(
+                        minimumSize: const Size(double.infinity, 52),
+                        shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(6.0)))),
                     onPressed: () {},
-                    child: Text('Registered or Log in'),
+                    child: const Text('Registered or Log in'),
                   ),
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.01,
@@ -72,7 +72,7 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {},
-                    child: Text('Continue as Guest'),
+                    child: const Text('Continue as Guest'),
                   ),
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.05,

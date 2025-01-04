@@ -24,7 +24,7 @@ class DetailMealScreen extends StatelessWidget {
            Expanded(
             flex: 1,
             child: InformationMealCard(
-              currentIndex: currentIndex!,
+              currentIndex: currentIndex,
               factorChange: factorChange,
               pageControllerText: pageControllerText,
             ),

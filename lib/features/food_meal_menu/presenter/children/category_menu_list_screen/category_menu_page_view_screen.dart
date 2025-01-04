@@ -61,7 +61,7 @@ class CategoryMenuListScreen extends StatelessWidget {
             endXTranslate: -(size.width * 0.05),
             startYTranslate: size.height * 0.5,
             endYTranslate: size.height * 0.1,
-            child: SizedBox(),
+            child: const SizedBox(),
           ),
         // Void Page View
         Positioned.fill(

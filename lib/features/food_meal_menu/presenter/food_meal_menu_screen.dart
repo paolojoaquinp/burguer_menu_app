@@ -11,9 +11,9 @@ class FoodMealMenuScreen extends StatefulWidget {
 }
 
 class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
-  late PageController _pageController =
+  late final PageController _pageController =
       PageController(initialPage: 4, viewportFraction: 0.6);
-  late PageController _pageControllerText = PageController(
+  late final PageController _pageControllerText = PageController(
     initialPage: 4,
   );
 
@@ -77,7 +77,7 @@ class _FoodMealMenuScreenState extends State<FoodMealMenuScreen> {
         surfaceTintColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_bag_outlined),
+            icon: const Icon(Icons.shopping_bag_outlined),
             onPressed: () {},
           ),
         ],

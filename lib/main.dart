@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       title: 'Burguer menu app',
-      home: FoodMealMenuScreen(),
+      home: const FoodMealMenuScreen(),
     );
   }
 }

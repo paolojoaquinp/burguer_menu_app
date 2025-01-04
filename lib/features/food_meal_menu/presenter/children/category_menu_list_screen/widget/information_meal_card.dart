@@ -70,13 +70,13 @@ class _InformationMealCardState extends State<InformationMealCard> {
           RichText(
             text: TextSpan(
               text:
-                  "£${MealEntity.fakeValues[widget.currentIndex!].price.toString().substring(0, 3)}",
+                  "£${MealEntity.fakeValues[widget.currentIndex].price.toString().substring(0, 3)}",
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
               children: <TextSpan>[
                 TextSpan(
-                  text: MealEntity.fakeValues[widget.currentIndex!].price
+                  text: MealEntity.fakeValues[widget.currentIndex].price
                       .toString()
                       .substring(3, 5),
                   style: Theme.of(context).textTheme.titleMedium,
@@ -92,7 +92,6 @@ class _InformationMealCardState extends State<InformationMealCard> {
 
 class _TransformedText extends StatelessWidget {
   const _TransformedText({
-    super.key,
     required this.currentIndex,
     required this.factorChange,
     required this.beginTranslateX,

@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:burguer_menu_app/features/home_screen/domain/entities/food_meal_entity.dart';
 import 'package:burguer_menu_app/features/home_screen/presenter/widgets/food_menu_card.dart';
@@ -6,6 +5,8 @@ import 'package:burguer_menu_app/features/shared/custom_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +17,14 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         centerTitle: false,
-        title: Text('Menu',
+        title: const Text('Menu',
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 28,
                 fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_bag, color: Colors.black),
+            icon: const Icon(Icons.shopping_bag, color: Colors.black),
             onPressed: () {},
           )
         ],
