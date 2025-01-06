@@ -2,7 +2,7 @@ import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/cate
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/detail_meal_screen/widgets/size_option_widget.dart';
 import 'package:flutter/material.dart';
 
-class DetailMealScreen extends StatelessWidget {
+class DetailMealScreen extends StatefulWidget {
   const DetailMealScreen({
     super.key,
     required this.currentIndex,
@@ -15,6 +15,14 @@ class DetailMealScreen extends StatelessWidget {
   final PageController pageControllerText;
 
   @override
+  State<DetailMealScreen> createState() => _DetailMealScreenState();
+}
+
+class _DetailMealScreenState extends State<DetailMealScreen>
+    with SingleTickerProviderStateMixin {
+  double scaleSizeOption = 1.0;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -22,26 +30,37 @@ class DetailMealScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Expanded(
+          Expanded(
             flex: 1,
             child: InformationMealCard(
-              currentIndex: currentIndex,
-              factorChange: factorChange,
-              pageControllerText: pageControllerText,
+              currentIndex: widget.currentIndex,
+              factorChange: widget.factorChange,
+              pageControllerText: widget.pageControllerText,
             ),
           ),
           Expanded(
             flex: 11,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Spacer(),
                 Hero(
-                  tag: 'meal-card-$currentIndex',
+                  tag: 'meal-card-${widget.currentIndex}',
                   child: Center(
-                    child: Image.asset(
-                      'assets/milkshakes/shake-$currentIndex.png',
-                      height: 400,
-                      fit: BoxFit.contain,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 800),
+                      curve: Curves.easeInOutBack,
+                      transformAlignment: Alignment.center,
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..scale(scaleSizeOption),
+                      child: Image.asset(
+                        'assets/milkshakes/shake-${widget.currentIndex}.png',
+                        height: MediaQuery.sizeOf(context).height * 0.5,
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
@@ -53,9 +72,24 @@ class DetailMealScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const SizeOptionWidget(text: 'Small', isSelected: true),
-                          const SizeOptionWidget(text: 'Medium',isSelected:  false),
-                          const SizeOptionWidget(text: 'Large', isSelected: false),
+                          SizeOptionWidget(
+                              text: 'Small',
+                              isSelected: true,
+                              onPressed: () => setState(() {
+                                    scaleSizeOption = 0.7;
+                                  })),
+                          SizeOptionWidget(
+                              text: 'Medium',
+                              isSelected: false,
+                              onPressed: () => setState(() {
+                                    scaleSizeOption = 1.0;
+                                  })),
+                          SizeOptionWidget(
+                              text: 'Large',
+                              isSelected: false,
+                              onPressed: () => setState(() {
+                                    scaleSizeOption = 1.3;
+                                  })),
                           IconButton(
                             icon: const Icon(Icons.arrow_forward),
                             onPressed: () {},
@@ -77,7 +111,8 @@ class DetailMealScreen extends StatelessWidget {
                                     child: _buildTemperatureOption('Hot', true),
                                   ),
                                   Expanded(
-                                    child: _buildTemperatureOption('Iced', false),
+                                    child:
+                                        _buildTemperatureOption('Iced', false),
                                   ),
                                 ],
                               ),
@@ -85,6 +120,8 @@ class DetailMealScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           FloatingActionButton(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             mini: true,
                             child: const Icon(Icons.add),
                             onPressed: () {},
@@ -102,7 +139,6 @@ class DetailMealScreen extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildTemperatureOption(String text, bool isSelected) {
     return Container(
