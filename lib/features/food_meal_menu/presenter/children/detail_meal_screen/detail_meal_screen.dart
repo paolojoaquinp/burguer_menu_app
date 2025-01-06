@@ -33,6 +33,7 @@ class DetailMealScreen extends StatelessWidget {
             flex: 11,
             child: Column(
               children: [
+                const Spacer(),
                 Hero(
                   tag: 'meal-card-$currentIndex',
                   child: Center(
@@ -43,6 +44,7 @@ class DetailMealScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                const Spacer(),
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
