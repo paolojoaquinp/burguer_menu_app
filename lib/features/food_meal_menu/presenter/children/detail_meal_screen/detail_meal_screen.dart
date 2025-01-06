@@ -1,4 +1,5 @@
 import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/category_menu_list_screen/widget/information_meal_card.dart';
+import 'package:burguer_menu_app/features/food_meal_menu/presenter/children/detail_meal_screen/widgets/size_option_widget.dart';
 import 'package:flutter/material.dart';
 
 class DetailMealScreen extends StatelessWidget {
@@ -52,9 +53,9 @@ class DetailMealScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _buildSizeOption('Small', true),
-                          _buildSizeOption('Medium', false),
-                          _buildSizeOption('Large', false),
+                          const SizeOptionWidget(text: 'Small', isSelected: true),
+                          const SizeOptionWidget(text: 'Medium',isSelected:  false),
+                          const SizeOptionWidget(text: 'Large', isSelected: false),
                           IconButton(
                             icon: const Icon(Icons.arrow_forward),
                             onPressed: () {},
@@ -102,35 +103,6 @@ class DetailMealScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSizeOption(String text, bool isSelected) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: isSelected ? Colors.black : Colors.grey,
-              width: 1,
-            ),
-          ),
-          child: Icon(
-            Icons.coffee,
-            color: isSelected ? Colors.black : Colors.grey,
-            size: 20,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.black : Colors.grey,
-            fontSize: 12,
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildTemperatureOption(String text, bool isSelected) {
     return Container(
