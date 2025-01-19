@@ -14,34 +14,38 @@ class SizeOptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onPressed,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isSelected ? Colors.black : Colors.grey,
+                  width: 1,
+                ),
+              ),
+              child: Icon(
+                Icons.coffee,
                 color: isSelected ? Colors.black : Colors.grey,
-                width: 1,
+                size: 20,
               ),
             ),
-            child: Icon(
-              Icons.coffee,
-              color: isSelected ? Colors.black : Colors.grey,
-              size: 20,
+            const SizedBox(height: 4),
+            Text(
+              text,
+              style: TextStyle(
+                color: isSelected ? Colors.black : Colors.grey,
+                fontSize: 12,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            text,
-            style: TextStyle(
-              color: isSelected ? Colors.black : Colors.grey,
-              fontSize: 12,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
